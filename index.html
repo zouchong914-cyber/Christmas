@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Christmas Surprise</title>
+<style>
+:root{--pine:#102d27;--pine2:#1b4438;--red:#8e2635;--gold:#e8c77b;--cream:#fff8e9;--ink:#27352e}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--cream);font-family:Georgia,"Times New Roman",serif;background:radial-gradient(ellipse at 50% 15%,#285344 0,#142f29 48%,#091b19 100%);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.28;background-image:radial-gradient(#fff 1px,transparent 1px),radial-gradient(#fff 1px,transparent 1px);background-size:85px 85px,137px 137px;background-position:0 0,35px 55px;animation:snow 18s linear infinite}
+@keyframes snow{to{background-position:0 300px,35px 355px}}
+.wrap{width:min(920px,92vw);margin:auto;padding:34px 0 60px;position:relative;z-index:1;text-align:center}
+.eyebrow{letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font:11px Arial,sans-serif}
+h1{font-size:clamp(42px,8vw,76px);font-weight:400;line-height:1.02;margin:18px 0 10px;text-shadow:0 4px 30px #0007}
+.subtitle{font:14px Arial,sans-serif;letter-spacing:.08em;color:#e6e2d5}
+.panel{display:none;animation:appear .8s ease both}
+.panel.active{display:block}
+@keyframes appear{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.cover-art{margin:34px auto 22px;width:min(440px,86vw);aspect-ratio:4/3;border:1px solid #d9bd76aa;border-radius:220px 220px 18px 18px;background:linear-gradient(160deg,#244f3d,#0e2924 68%);box-shadow:0 22px 65px #0006;display:grid;place-items:center;position:relative;overflow:hidden}
+.cover-art:before,.cover-art:after{content:"✦";position:absolute;color:var(--gold);font-size:24px;opacity:.8}
+.cover-art:before{top:22%;left:19%}.cover-art:after{right:20%;top:32%;font-size:16px}
+.tree{font-size:clamp(100px,22vw,170px);filter:drop-shadow(0 12px 14px #0007);line-height:1}
+.cover-caption{position:absolute;bottom:20px;left:0;right:0;color:var(--gold);font-size:13px;letter-spacing:.22em}
+button{border:1px solid var(--gold);background:var(--gold);color:#1b3028;border-radius:999px;padding:14px 27px;font: bold 12px Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:.25s}
+button:hover{transform:translateY(-2px);box-shadow:0 8px 24px #0005}
+button.secondary{background:transparent;color:var(--gold)}
+.gift-stage{min-height:360px;display:grid;place-items:center}
+.gift{position:relative;width:170px;height:150px;cursor:pointer;filter:drop-shadow(0 18px 18px #0006);transition:transform .3s}
+.gift:hover{transform:translateY(-7px) rotate(-2deg)}
+.box{position:absolute;bottom:0;width:170px;height:112px;background:linear-gradient(90deg,#7b1e2d,#a93443 50%,#741b29);border:1px solid #dcae67}
+.box:before{content:"";position:absolute;left:68px;width:30px;height:100%;background:linear-gradient(90deg,#e4bd68,#ffdf91,#c69b4e)}
+.lid{position:absolute;top:25px;left:-8px;width:186px;height:34px;background:linear-gradient(#b8404b,#861e2d);border:1px solid #e3c17b;transform-origin:left center;transition:transform .9s ease;z-index:2}
+.lid:before{content:"";position:absolute;left:76px;width:30px;height:100%;background:#e8c77b}
+.bow{position:absolute;top:0;left:62px;width:48px;height:34px;z-index:3}
+.bow:before,.bow:after{content:"";position:absolute;width:26px;height:20px;border:7px solid var(--gold);border-radius:50% 50% 0 50%;transform:rotate(25deg)}
+.bow:after{left:24px;transform:scaleX(-1) rotate(25deg)}
+.gift.open .lid{transform:translate(-18px,-62px) rotate(-25deg)}
+.gift.open .bow{transform:translate(-15px,-60px) rotate(-25deg);transition:.8s}
+.hint{color:#e9dfc9;font:13px Arial,sans-serif;letter-spacing:.05em}
+.form-card{max-width:460px;margin:28px auto;padding:30px;background:#fff9eb;color:var(--ink);border-radius:8px;box-shadow:0 20px 55px #0005}
+.form-card h2{font-size:30px;font-weight:400;margin:0 0 8px}
+.form-card p{font:13px/1.6 Arial,sans-serif;color:#657168}
+input{display:block;width:100%;margin:12px 0;padding:14px 15px;border:1px solid #c9c2ad;border-radius:5px;background:#fffdf7;font:15px Arial,sans-serif;color:#26352e;outline:none}
+input:focus{border-color:#9a6a32;box-shadow:0 0 0 3px #d8bd7955}
+.form-card button{width:100%;margin-top:8px}
+.error{min-height:18px;color:#9b2636;font:12px Arial,sans-serif;margin-top:10px}
+.letter{max-width:650px;margin:28px auto;background:var(--cream);color:var(--ink);padding:clamp(25px,6vw,55px);text-align:left;box-shadow:0 22px 60px #0006;position:relative}
+.letter:before{content:"";position:absolute;inset:12px;border:1px solid #d5bd83;pointer-events:none}
+.letter .to{font:italic 18px Georgia,serif;color:#8c2936}
+.letter h2{text-align:center;font-size:clamp(30px,5vw,44px);font-weight:400;color:#8c2936;margin:18px 0}
+.letter p{font:16px/1.9 Georgia,serif;white-space:pre-line}
+.signature{text-align:right;font-style:italic;color:#8c2936;margin-top:28px}
+.footer{margin-top:45px;font:11px Arial,sans-serif;letter-spacing:.16em;color:#b9c8b8}
+.hidden{display:none!important}
+@media(max-width:520px){.wrap{padding-top:25px}.form-card{padding:23px}.letter{padding:28px 24px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <section id="cover" class="panel active">
+    <div class="eyebrow">A little something for you</div>
+    <h1>Merry<br>Christmas</h1>
+    <div class="subtitle">A small card, a little surprise, and warm wishes.</div>
+    <div class="cover-art"><div class="tree">🎄</div><div class="cover-caption">SEASON'S GREETINGS · 2026</div></div>
+    <button onclick="showPanel('giftPanel')">Open your surprise</button>
+  </section>
+
+  <section id="giftPanel" class="panel">
+    <div class="eyebrow">Just for you</div>
+    <h1>A little gift</h1>
+    <p class="subtitle">Every gift begins with a little curiosity.</p>
+    <div class="gift-stage">
+      <div>
+        <div id="gift" class="gift" role="button" tabindex="0" aria-label="Open the gift" onclick="openGift()">
+          <div class="lid"></div><div class="bow"></div><div class="box"></div>
+        </div>
+      </div>
+    </div>
+    <p id="giftHint" class="hint">Tap the gift box to unwrap it ✨</p>
+    <button id="giftNext" class="hidden" onclick="showPanel('entryPanel')">Continue</button>
+  </section>
+
+  <section id="entryPanel" class="panel">
+    <div class="eyebrow">A message made for you</div>
+    <h1>Your little corner</h1>
+    <div class="form-card">
+      <h2>Who's opening this card?</h2>
+      <p>Enter the name or birthday I shared with you to unlock your personal Christmas message.</p>
+      <form id="unlockForm">
+        <input id="nameInput" autocomplete="given-name" placeholder="Your name" aria-label="Your name">
+        <input id="birthdayInput" inputmode="numeric" placeholder="Birthday (MM-DD)" aria-label="Birthday, month and day">
+        <button type="submit">Unlock my message</button>
+        <div id="error" class="error" aria-live="polite"></div>
+      </form>
+    </div>
+    <p class="hint">A little detail, a message just for you.</p>
+  </section>
+
+  <section id="letterPanel" class="panel">
+    <div class="eyebrow">A Christmas note</div>
+    <div class="letter">
+      <div class="to" id="greeting">Dear friend,</div>
+      <h2>Merry Christmas!</h2>
+      <p id="message">I hope this Christmas brings you moments of peace, laughter, and unexpected happiness.
+
+Even though we may be far apart, I'm grateful that we got to know each other. Here's a little piece of Christmas warmth sent all the way from China.
+
+May the coming year bring you new adventures, kind people, and plenty of reasons to smile.
+
+Thank you for being part of my year. ❤️</p>
+      <div class="signature">From China with love,<br>Justin</div>
+    </div>
+    <button class="secondary" onclick="restart()">Replay the surprise</button>
+  </section>
+  <div class="footer">MADE WITH WARM WISHES · CHRISTMAS 2026</div>
+</main>
+<script>
+// CUSTOMIZE THIS LIST: add one entry for each friend.
+// Use either name OR birthday to unlock their message.
+// Birthday format: "MM-DD", for example "12-25".
+const recipients = [
+  {
+    name: "alex",
+    birthday: "12-25",
+    greeting: "Dear Alex,",
+    message: `I hope this Christmas brings you moments of peace, laughter, and unexpected happiness.
+
+Even though we may be far apart, I'm grateful that we got to know each other. Here's a little piece of Christmas warmth sent all the way from China.
+
+May the coming year bring you new adventures, kind people, and plenty of reasons to smile.
+
+Thank you for being part of my year. ❤️`
+  },
+  {
+    name: "sam",
+    birthday: "07-14",
+    greeting: "Dear Sam,",
+    message: `Wishing you a Christmas filled with cozy moments, good surprises, and people who make you smile.
+
+I'm happy our paths crossed. No matter how far away we are, I hope this little card reminds you that someone is sending warm wishes from China.
+
+Have a wonderful Christmas and an amazing New Year! ❤️`
+  }
+];
+
+function showPanel(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function openGift(){
+  const gift=document.getElementById('gift');
+  if(gift.classList.contains('open')) return;
+  gift.classList.add('open');
+  document.getElementById('giftHint').textContent='A little surprise is waiting inside…';
+  setTimeout(()=>document.getElementById('giftNext').classList.remove('hidden'),950);
+}
+document.getElementById('gift').addEventListener('keydown',e=>{
+  if(e.key==='Enter'||e.key===' '){e.preventDefault();openGift();}
+});
+document.getElementById('unlockForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const name=document.getElementById('nameInput').value.trim().toLowerCase();
+  const birthday=document.getElementById('birthdayInput').value.trim();
+  const match=recipients.find(r=>(name && r.name.toLowerCase()===name)||(birthday && r.birthday===birthday));
+  if(!match){
+    document.getElementById('error').textContent="I couldn't find a match. Please check the details and try again.";
+    return;
+  }
+  document.getElementById('error').textContent='';
+  document.getElementById('greeting').textContent=match.greeting;
+  document.getElementById('message').textContent=match.message;
+  showPanel('letterPanel');
+});
+function restart(){
+  document.getElementById('gift').classList.remove('open');
+  document.getElementById('giftNext').classList.add('hidden');
+  document.getElementById('giftHint').textContent='Tap the gift box to unwrap it ✨';
+  document.getElementById('nameInput').value='';
+  document.getElementById('birthdayInput').value='';
+  showPanel('cover');
+}
+</script>
+</body>
+</html>
